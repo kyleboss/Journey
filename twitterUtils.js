@@ -13,6 +13,9 @@ module.exports = function(T) {
 					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
 					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
 					console.log("GEO")
+					console.log(geoEnabledTweetDest)
+					console.log(geoEnabledTweetOrig)
+					console.log(geoEnabledTweetDest && geoEnabledTweetOrig)
 					console.log(geoEnabled)
 					if (geoEnabled) {
 						console.log(tweetDest)
@@ -52,7 +55,6 @@ module.exports = function(T) {
 	twitter.isGeoEnabled = function(tweet) {
 		// console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		try {
-			console.log(tweet["user"]["geo_enabled"])
 			return tweet["user"]["geo_enabled"] && tweet["geo"]
 		} catch (e) {
 			console.log(tweet)
