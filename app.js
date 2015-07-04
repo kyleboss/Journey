@@ -48,10 +48,6 @@ http.listen(8080, function() {
 
 var stream = T.stream('statuses/filter', { track: 'just landed' })
 
-stream.on('tweet', function (tweet) {
-  console.log(tweet)
-})
-
 
 io.sockets.on('connection', function (socket) {
 	console.log("connented")
