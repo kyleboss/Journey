@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+console.log("GRR")
 var Tweet = React.createClass({
     render: function() {
         return (
@@ -35,7 +36,7 @@ var TweetBox = React.createClass({
         return {data: []};
     },
     componentWillMount: function() {
-        var socket = io.connect();
+        var socket = io.connect("http://45.55.1.63:8000");
         var self = this;
 
         socket.on('info', function (data) {
