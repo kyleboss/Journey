@@ -57,29 +57,31 @@ io.sockets.on('connection', function (socket) {
 		console.log("\n")
 
 		Q.fcall(function() { 
-			tweetOrig = twitter.getPreviousTweet(tweetDest) 
+			return twitter.getPreviousTweet(tweetDest) 
 		})
-		.then(function() { 
-			isFirstTweet = twitter.isFirstTweet(tweetOrig) 
-		}).then(function() {
-			if (!isFirstTweet) {
-				var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
-				var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
-				var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
-				if (geoEnabled) {
-					var coordDest 	= tweetDest["geo"]["coordinates"]
-					var coordOrig 	= tweetOrig["geo"]["coordinates"]
-					var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
-					console.log(tweetDist)
-					console.log("\n\n\n\n")
-					var isFlight 	= twitter.isFlight(tweetDist)
-					if (isFlight) socket.emit('info', { tweet: tweet});
+		.then(function(tweetOrig) { 
+			return twitter.isFirstTweet(tweetOrig) 
+			.then(function(isFirstTweet) {
+				if (!isFirstTweet) {
+					console.log(2)
+					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
+					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
+					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
+					if (geoEnabled) {
+						var coordDest 	= tweetDest["geo"]["coordinates"]
+						var coordOrig 	= tweetOrig["geo"]["coordinates"]
+						var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
+						console.log(tweetDist)
+						console.log("\n\n\n\n")
+						var isFlight 	= twitter.isFlight(tweetDist)
+						if (isFlight) socket.emit('info', { tweet: tweet});
+					} else {
+						console.log("geoEnabled: " + geoEnabled)
+					}
 				} else {
-					console.log("geoEnabled: " + geoEnabled)
+					console.log("isFirstTweet: " + isFirstTweet)
 				}
-			} else {
-				console.log("isFirstTweet: " + isFirstTweet)
-			}
+			})
 		})
 	});
 });

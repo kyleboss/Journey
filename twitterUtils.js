@@ -9,7 +9,6 @@ module.exports = function(T) {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			return data[1]
 		  		} catch(e) {}
-		  		return false
 			}
 		)
 	}
@@ -31,7 +30,6 @@ module.exports = function(T) {
 	}
 
 	twitter.isGeoEnabled = function(tweet) {
-		console.log(2)
 		// console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		try {
 			return tweet["user"]["geo_enabled"]
