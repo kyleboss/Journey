@@ -6,6 +6,7 @@ module.exports = function(T) {
 			function(err, data, response) {
 				try {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  			console.log(data)
 		  			return data[1]
 		  		} catch(e) {}
 		  		return false
