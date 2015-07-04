@@ -46,7 +46,7 @@ http.listen(8080, function() {
 });
 // var stream = T.stream('statuses/sample')
 
-var stream = T.stream('statuses/filter', { track: 'mango' })
+var stream = T.stream('statuses/filter', { track: 'just landed' })
 
 stream.on('tweet', function (tweet) {
   console.log(tweet)
