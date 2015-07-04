@@ -4,6 +4,7 @@ module.exports = function(T) {
 	twitter.getPreviousTweet = function(tweet) {
 		return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
+				console.log(1)
 				try {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			return data[1]
@@ -30,6 +31,7 @@ module.exports = function(T) {
 	}
 
 	twitter.isGeoEnabled = function(tweet) {
+		console.log(2)
 		// console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		try {
 			return tweet["user"]["geo_enabled"]
