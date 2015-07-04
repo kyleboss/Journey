@@ -12,7 +12,6 @@ module.exports = function(T) {
 		  		} catch(e) {}
 			}
 		)
-		console.log(tweetOrig)
 		return tweetOrig
 	}
 
