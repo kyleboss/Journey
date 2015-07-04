@@ -60,7 +60,6 @@ io.sockets.on('connection', function (socket) {
 			return twitter.getPreviousTweet(tweetDest) 
 		})
 		.then(function(tweetOrig) { 
-			console.log(tweetOrig)
 			console.log(twitter.isFirstTweet(tweetOrig))
 			return twitter.isFirstTweet(tweetOrig) 
 			.then(function(isFirstTweet) {

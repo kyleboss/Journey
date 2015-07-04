@@ -2,7 +2,8 @@ module.exports = function(T) {
 	var twitter = {}
 
 	twitter.getPreviousTweet = function(tweet) {
-		T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
+		var tweetOrig = Q.fcall(function() {
+			return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
 				console.log(1)
 				try {
@@ -11,7 +12,9 @@ module.exports = function(T) {
 		  			return data[1]
 		  		} catch(e) {}
 			}
-		)
+		})
+		console.log(tweetOrig)
+		return tweetOrig
 	}
 
 	twitter.getDistance = function(geo1, geo2) {
