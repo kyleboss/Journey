@@ -4,7 +4,7 @@ module.exports = function(T) {
 	twitter.getPreviousTweet = function(tweet) {
 		console.log("A")
 		var tweetOrig = Q.fcall(function() {
-			console.log("B)"
+			console.log("B")
 			return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
 				console.log(1)
