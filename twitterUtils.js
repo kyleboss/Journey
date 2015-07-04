@@ -8,6 +8,7 @@ module.exports = function(T) {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			return data[1]
 		  		} catch(e) {}
+		  		return false
 			}
 		)
 	}
