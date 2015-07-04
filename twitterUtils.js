@@ -55,7 +55,7 @@ module.exports = function(T) {
 	twitter.isGeoEnabled = function(tweet) {
 		// console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		try {
-			return tweet["user"]["geo_enabled"] && tweet["geo"]
+			return tweet["user"]["geo_enabled"] && tweet["geo"] != null
 		} catch (e) {
 			console.log(tweet)
 			throw new Error (e)
