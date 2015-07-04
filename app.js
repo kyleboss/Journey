@@ -56,7 +56,18 @@ io.sockets.on('connection', function (socket) {
 		var tweetOrig
 		console.log("\n")
 
-		Q.fcall(twitter.getPreviousTweet(tweetDest))
+		Q.fcall(function() {
+			var tweetOrig = T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
+			function(err, data, response) {
+				console.log(1)
+				try {
+		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  			console.log(data[1])
+		  			return data[1]
+		  		} catch(e) {}
+			})
+			return tweetOrig
+		})
 		.then(function(tweetOrig) { 
 			console.log(twitter.isFirstTweet(tweetOrig))
 			Q.fcall(function() {return twitter.isFirstTweet(tweetOrig) })
