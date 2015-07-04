@@ -2,12 +2,13 @@ module.exports = function(T) {
 	var twitter = {}
 
 	twitter.getPreviousTweet = function(tweetDest, socket) {
-		var tweetOrig = T.get('statuses/user_timeline', { user_id: tweetDest["user"]["id"], count: 2 }, 
+		T.get('statuses/user_timeline', { user_id: tweetDest["user"]["id"], count: 2 }, 
 			function(err, data, response) {
+				var tweetOrig
 				var isFirstTweet = twitter.isFirstTweet(data)
 				if (!isFirstTweet) {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
-		  			console.log(data[1])
+		  			tweetOrig 				= data[1]
 					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
 					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
 					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
@@ -27,7 +28,6 @@ module.exports = function(T) {
 				}
 			}
 		)
-		return tweetOrig
 	}
 
 	twitter.getDistance = function(geo1, geo2) {
