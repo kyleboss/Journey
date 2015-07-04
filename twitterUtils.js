@@ -2,15 +2,10 @@ module.exports = function(T) {
 	var twitter = {}
 
 	twitter.getPreviousTweet = function(tweet) {
-		console.log("HI")
 		return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
-				console.log("hello")
 				try {
-		  			// console.log(data[0]["text"] + "\n**" + data[1]["text"])
-		  			console.log(data)
-		  			console.log(response)
-		  			console.log(err)
+		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			return data[1]
 		  		} catch(e) {}
 		  		return false

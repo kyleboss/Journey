@@ -62,9 +62,6 @@ io.sockets.on('connection', function (socket) {
 		.then(function() { 
 			isFirstTweet = twitter.isFirstTweet(tweetOrig) 
 		}).then(function() {
-		// var tweetOrig 			= twitter.getPreviousTweet(tweetDest)
-		// var isFirstTweet 		= twitter.isFirstTweet(tweetOrig)
-			console.log(tweetOrig)
 			if (!isFirstTweet) {
 				var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
 				var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
