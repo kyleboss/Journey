@@ -27,6 +27,8 @@ var TweetBox = React.createClass({
     addTweet: function(tweet) {
         var tweets = this.state.data;
         var newTweets = tweets.concat([tweet]);
+
+        console.log(newTweets)
         if(newTweets.length > 15) {
             newTweets.splice(0, 1);
         }
