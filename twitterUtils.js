@@ -5,7 +5,7 @@ module.exports = function(T) {
 		var tweetOrig = T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
 				var isFirstTweet = twitter.isFirstTweet(data)
-				if (!isFirstTweet)
+				if (!isFirstTweet) {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			console.log(data[1])
 					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
