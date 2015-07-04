@@ -50,10 +50,20 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 
 
 io.sockets.on('connection', function (socket) {
-	console.log("connented")
-	stream.on('tweet', function(tweet) {
-		twitter.getPreviousTweet(tweet)
-		socket.emit('info', { tweet: tweet});
+	stream.on('tweet', function(tweetDest) {
+		var tweetOrig 			= twitter.getPreviousTweet(tweetDest)
+		var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
+		var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
+		var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
+		if (geoEnabled) {
+			var coordDest 	= tweetDest["geo"]["coordinates"]
+			var coordOrig 	= tweetOrig["geo"]["coordinates"]
+			var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
+			console.log(tweetDist)
+			console.log("\n\n\n\n")
+			var isFlight 	= twitter.isFlight(tweetDist)
+			if (isFlight) socket.emit('info', { tweet: tweet});
+		}
 	});
 });
 
