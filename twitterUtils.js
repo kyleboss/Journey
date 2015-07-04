@@ -2,10 +2,12 @@ module.exports = function(T) {
 	var twitter = {}
 
 	twitter.getPreviousTweet = function(tweet) {
-		T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, function(err, data, response) {
-	  		console.log(data[0]["text"] + "\n**" + data[1]["text"])
-	  		return data[1]
-		})
+		return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
+			function(err, data, response) {
+		  		console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  		return data[1]
+			}
+		)
 	}
 
 	twitter.getDistance = function(geo1, geo2) {
