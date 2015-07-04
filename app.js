@@ -8,6 +8,7 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
+var twitter			= require('./twitterUtils.js');
 var app 			= express();
 var http    		= require('http').Server(app);
 var io = require('socket.io')(http);
@@ -34,7 +35,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-var T       = new Twit({
+var T = new Twit({
 	consumer_key: 			config.twitter.consumerKey,
 	consumer_secret: 		config.twitter.consumerSecret,
 	access_token: 			config.twitter.accessToken,
@@ -56,6 +57,7 @@ stream.on('tweet', function (tweet) {
 io.sockets.on('connection', function (socket) {
 	console.log("connented")
 	stream.on('tweet', function(tweet) {
+		twitter.getPreviousTweet(tweet)
 		socket.emit('info', { tweet: tweet});
 	});
 });

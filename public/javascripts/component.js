@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-console.log("GRR")
 var Tweet = React.createClass({
     render: function() {
         return (
