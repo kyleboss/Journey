@@ -8,6 +8,7 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
+var react = require("express-react-views")
 var app 			= express();
 var http = require('http')
 var server = http.createServer(app).listen(app.get('port'), function(){
@@ -17,7 +18,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-// app.engine('jsx', react.createEngine());
+app.engine('jsx', react.createEngine());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
