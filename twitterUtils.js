@@ -6,8 +6,8 @@ module.exports = function(T) {
 			function(err, data, response) {
 				try {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  			return data[1]
 		  		} catch(e) {}
-		  		return data[1]
 			}
 		)
 	}
@@ -29,7 +29,6 @@ module.exports = function(T) {
 	}
 
 	twitter.isGeoEnabled = function(tweet) {
-		console.log(tweet)
 		console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		return tweet["user"]["geo_enabled"]
 	}
