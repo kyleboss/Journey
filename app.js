@@ -8,11 +8,10 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
-var react = require("express-react-views")
 var app 			= express();
-var http = require( "http" ).createServer( app );
-var io = require( "socket.io" )( http );
-http.listen(8080, "45.55.1.63");
+var react 			= require('express-react-views');
+var http    		= require('http').Server(app);
+var io = require('socket.io')(http);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,9 +43,9 @@ var T       = new Twit({
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
 
-// http.listen(8080, function() {
-//   console.log('Listening on port %d', http.address().port);
-// });
+http.listen(3000, function() {
+  console.log('Listening on port %d', http.address().port);
+});
 // var stream = T.stream('statuses/sample')
 
 var stream = T.stream('statuses/filter', { track: 'just landed' })
@@ -55,9 +54,6 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 //   console.log(tweet)
 // })
 
-io.on('connection',function(socket){  
-    console.log("A user is connected");
-});
 
 io.sockets.on('connection', function (socket) {
 	console.log("connented")
