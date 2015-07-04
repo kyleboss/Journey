@@ -1,7 +1,7 @@
 module.exports = function(T) {
 	var twitter = {}
 
-	twitter.getPreviousTweet = function(tweet, socket) {
+	twitter.getPreviousTweet = function(tweetDest, socket) {
 		var tweetOrig = T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
 				var isFirstTweet = twitter.isFirstTweet(data)
@@ -18,7 +18,7 @@ module.exports = function(T) {
 						console.log(tweetDist)
 						console.log("\n\n\n\n")
 						var isFlight 	= twitter.isFlight(tweetDist)
-						if (isFlight) socket.emit('info', { tweet: tweet});
+						if (isFlight) socket.emit('info', { tweet: tweetDest});
 					} else {
 						console.log("geoEnabled: " + geoEnabled)
 					}
