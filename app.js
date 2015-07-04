@@ -53,9 +53,15 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 io.sockets.on('connection', function (socket) {
 	stream.on('tweet', function(tweetDest) {
 		var isFirstTweet
+		var tweetOrig
 		console.log("\n")
-		Q.fcall(function() { twitter.getPreviousTweet(tweetDest) })
-		.then(function(tweetOrig) { isFirstTweet = twitter.isFirstTweet(tweetOrig) })
+		
+		Q.fcall(function() { 
+			tweetOrig = twitter.getPreviousTweet(tweetDest) 
+		})
+		.then(function() { 
+			isFirstTweet = twitter.isFirstTweet(tweetOrig) 
+		})
 		// var tweetOrig 			= twitter.getPreviousTweet(tweetDest)
 		// var isFirstTweet 		= twitter.isFirstTweet(tweetOrig)
 		if (!isFirstTweet) {
