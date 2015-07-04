@@ -8,6 +8,7 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
+var Q				= require('q');
 var app 			= express();
 var http    		= require('http').Server(app);
 var io 				= require('socket.io')(http);
@@ -51,10 +52,12 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 
 io.sockets.on('connection', function (socket) {
 	stream.on('tweet', function(tweetDest) {
+		var isFirstTweet
 		console.log("\n")
-		var tweetOrig 			= twitter.getPreviousTweet(tweetDest)
-		console.log(tweetOrig)
-		var isFirstTweet 		= twitter.isFirstTweet(tweetOrig)
+		Q.fcall(function() { twitter.getPreviousTweet(tweetDest) })
+		.then(function(tweetOrig) { isFirstTweet = twitter.isFirstTweet(tweetOrig) })
+		// var tweetOrig 			= twitter.getPreviousTweet(tweetDest)
+		// var isFirstTweet 		= twitter.isFirstTweet(tweetOrig)
 		if (!isFirstTweet) {
 			var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
 			var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
