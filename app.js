@@ -41,7 +41,7 @@ var T       = new Twit({
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
 
-http.listen(8080, function() {
+http.listen(3000, function() {
   console.log('Listening on port %d', http.address().port);
 });
 // var stream = T.stream('statuses/sample')
