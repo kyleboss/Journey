@@ -10,7 +10,7 @@ var Tweet = React.createClass({
 var TweetList = React.createClass({
     render: function() {
         var tweets = this.props.data.map(function(tweet) {
-            return ;
+            return <Tweet text={tweet.text} />;
         });
         return (
             <div>
@@ -26,7 +26,6 @@ var TweetBox = React.createClass({
     addTweet: function(tweet) {
         var tweets = this.state.data;
         var newTweets = tweets.concat([tweet]);
-
         if(newTweets.length > 15) {
             newTweets.splice(0, 1);
         }
@@ -53,7 +52,7 @@ var TweetBox = React.createClass({
     }
 });
 
-React.renderComponent(
+React.render(
   <TweetBox />,
   document.getElementById('content')
 );
