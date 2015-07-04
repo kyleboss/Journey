@@ -12,6 +12,8 @@ module.exports = function(T) {
 					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
 					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
 					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
+					console.log("GEO")
+					console.log(geoEnabled)
 					if (geoEnabled) {
 						console.log(tweetDest)
 						var coordDest 	= tweetDest["geo"]["coordinates"]
