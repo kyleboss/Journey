@@ -38,7 +38,7 @@ var TweetBox = React.createClass({
         return {data: []};
     },
     componentWillMount: function() {
-        var socket = io.connect("http://justlanded.herokuapp.com:8000");
+        var socket = io.connect("http://justlanded.herokuapp.com:3000");
         var self = this;
 
         // socket.on('info', function (data) {
