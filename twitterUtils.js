@@ -30,8 +30,8 @@ module.exports = function(T) {
 
 	twitter.isGeoEnabled = function(tweet) {
 		console.log(tweet)
-		console.log("RETURNINGL: " + tweet["geo_enabled"])
-		return tweet["geo_enabled"]
+		console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
+		return tweet["user"]["geo_enabled"]
 	}
 
 	twitter.isFlight = function(distance) {
