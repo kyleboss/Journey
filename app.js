@@ -9,10 +9,10 @@ var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
 var app 			= express();
-// var http    		= require('http').Server(app);
-// var io = require('socket.io')(http);
-var http    		= require('http');
-var io = require('socket.io');
+var http = require('http')
+var server = http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,10 +37,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-var server = http.createServer(app).listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
-});
-
 var T       = new Twit({
 	consumer_key: 			config.twitter.consumerKey,
 	consumer_secret: 		config.twitter.consumerSecret,
@@ -58,6 +54,8 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 // stream.on('tweet', function (tweet) {
 //   console.log(tweet)
 // })
+
+var io = require('socket.io').listen(server);
 
 
 io.sockets.on('connection', function (socket) {
