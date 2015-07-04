@@ -10,6 +10,7 @@ var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
 var app 			= express();
 var http    		= require('http').Server(app);
+var server = app.listen(3000);
 var io = require('socket.io')(http);
 
 // view engine setup
@@ -41,7 +42,7 @@ var T       = new Twit({
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
 
-http.listen(3000, function() {
+http.listen(8080, function() {
   console.log('Listening on port %d', http.address().port);
 });
 // var stream = T.stream('statuses/sample')
