@@ -7,6 +7,7 @@ module.exports = function(T) {
 				console.log(1)
 				try {
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  			console.log(data[1])
 		  			return data[1]
 		  		} catch(e) {}
 			}
