@@ -32,5 +32,9 @@ module.exports = function(T) {
 		return distance > 100
 	}
 
+	twitter.isFirstTweet = function(tweet) {
+		return tweet == undefined
+	}
+
 	return twitter
 }
