@@ -11,7 +11,7 @@ module.exports = function(T) {
 		  			console.log(data[1])
 		  			return data[1]
 		  		} catch(e) {}
-			}
+			})
 		})
 		console.log(tweetOrig)
 		return tweetOrig
