@@ -56,7 +56,7 @@ io.sockets.on('connection', function (socket) {
 		var tweetOrig
 		console.log("\n")
 
-		Q.fcall(twitter.getPreviousTweet(tweetDest))
+		Q.fcall(return twitter.getPreviousTweet(tweetDest))
 		.then(function(tweetOrig) { 
 			console.log(twitter.isFirstTweet(tweetOrig))
 			return twitter.isFirstTweet(tweetOrig) 
