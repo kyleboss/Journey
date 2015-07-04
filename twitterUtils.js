@@ -2,7 +2,7 @@ module.exports = function(T) {
 	var twitter = {}
 
 	twitter.getPreviousTweet = function(tweetDest, socket) {
-		var tweetOrig = T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
+		var tweetOrig = T.get('statuses/user_timeline', { user_id: tweetDest["user"]["id"], count: 2 }, 
 			function(err, data, response) {
 				var isFirstTweet = twitter.isFirstTweet(data)
 				if (!isFirstTweet) {
