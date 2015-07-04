@@ -8,11 +8,16 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
-var twitter			= require('./twitterUtils.js');
 var app 			= express();
 var http    		= require('http').Server(app);
-var io = require('socket.io')(http);
-
+var io 				= require('socket.io')(http);
+var T 				= new Twit({
+	consumer_key: 			config.twitter.consumerKey,
+	consumer_secret: 		config.twitter.consumerSecret,
+	access_token: 			config.twitter.accessToken,
+	access_token_secret: 	config.twitter.accessTokenSecret
+});
+var twitter = require('./twitterUtils.js');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -33,13 +38,6 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
-});
-
-var T = new Twit({
-	consumer_key: 			config.twitter.consumerKey,
-	consumer_secret: 		config.twitter.consumerSecret,
-	access_token: 			config.twitter.accessToken,
-	access_token_secret: 	config.twitter.accessTokenSecret
 });
 
 http.listen(8080, function() {
