@@ -4,7 +4,9 @@ module.exports = function(T) {
 	twitter.getPreviousTweet = function(tweet) {
 		return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
-		  		console.log(data[0]["text"] + "\n**" + data[1]["text"])
+				try {
+		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  		} catch(e) {}
 		  		return data[1]
 			}
 		)
