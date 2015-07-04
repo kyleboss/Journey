@@ -18,6 +18,7 @@ var T 				= new Twit({
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
 var twitter = require('./twitterUtils.js');
+console.log(twitter)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
