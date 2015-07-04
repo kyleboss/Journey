@@ -1,15 +1,30 @@
 module.exports = function(T) {
 	var twitter = {}
 
-	twitter.getPreviousTweet = function(tweet) {
+	twitter.getPreviousTweet = function(tweet, socket) {
 		var tweetOrig = T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
-				console.log(1)
-				try {
+				var isFirstTweet = twitter.isFirstTweet(data)
+				if (!isFirstTweet)
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			console.log(data[1])
-		  			return data[1]
-		  		} catch(e) {}
+					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
+					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
+					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
+					if (geoEnabled) {
+						var coordDest 	= tweetDest["geo"]["coordinates"]
+						var coordOrig 	= tweetOrig["geo"]["coordinates"]
+						var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
+						console.log(tweetDist)
+						console.log("\n\n\n\n")
+						var isFlight 	= twitter.isFlight(tweetDist)
+						if (isFlight) socket.emit('info', { tweet: tweet});
+					} else {
+						console.log("geoEnabled: " + geoEnabled)
+					}
+		  		} else {
+					console.log("isFirstTweet: " + isFirstTweet)
+				}
 			}
 		)
 		return tweetOrig
@@ -45,8 +60,8 @@ module.exports = function(T) {
 		return distance > 100
 	}
 
-	twitter.isFirstTweet = function(tweet) {
-		return !tweet
+	twitter.isFirstTweet = function(tweets) {
+		return tweets.length == 1
 	}
 
 	return twitter

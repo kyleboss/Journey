@@ -8,7 +8,6 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
-var Q				= require('q');
 var app 			= express();
 var http    		= require('http').Server(app);
 var io 				= require('socket.io')(http);
@@ -18,7 +17,7 @@ var T 				= new Twit({
 	access_token: 			config.twitter.accessToken,
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
-var twitter = require('./twitterUtils.js')(T);
+var twitter = require('./twitterUtils.js')(T, io);
 console.log(twitter)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,36 +51,8 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 
 io.sockets.on('connection', function (socket) {
 	stream.on('tweet', function(tweetDest) {
-		var isFirstTweet
-		var tweetOrig
 		console.log("\n")
-		tweetOrig = twitter.getPreviousTweet(tweetDest)
-		tweetOrig.then(function(tweetOrig) { 
-			isFirstTweet = twitter.isFirstTweet(tweetOrig)
-			isFirstTweet.then(function(isFirstTweet) {
-				console.log("IFT:")
-				console.log(isFirstTweet)
-				if (!isFirstTweet) {
-					console.log(2)
-					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
-					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
-					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
-					if (geoEnabled) {
-						var coordDest 	= tweetDest["geo"]["coordinates"]
-						var coordOrig 	= tweetOrig["geo"]["coordinates"]
-						var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
-						console.log(tweetDist)
-						console.log("\n\n\n\n")
-						var isFlight 	= twitter.isFlight(tweetDist)
-						if (isFlight) socket.emit('info', { tweet: tweet});
-					} else {
-						console.log("geoEnabled: " + geoEnabled)
-					}
-				} else {
-					console.log("isFirstTweet: " + isFirstTweet)
-				}
-			})
-		})
+		var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
 	});
 });
 
