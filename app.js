@@ -57,7 +57,7 @@ stream.on('tweet', function (tweet) {
 io.sockets.on('connection', function (socket) {
 	console.log("connented")
 	stream.on('tweet', function(tweet) {
-		twitter.getPreviousTweet(tweet)
+		// twitter.getPreviousTweet(tweet)
 		socket.emit('info', { tweet: tweet});
 	});
 });
