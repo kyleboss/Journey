@@ -18,7 +18,6 @@ var T 				= new Twit({
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
 var twitter = require('./twitterUtils.js')(T);
-console.log(twitter)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -46,11 +45,10 @@ http.listen(8080, function() {
 });
 // var stream = T.stream('statuses/sample')
 
-var stream = T.stream('statuses/filter', { track: "'just landed'" })
+var stream = T.stream('statuses/filter', { track: '"just landed"' })
 
 
 io.sockets.on('connection', function (socket) {
-	console.log("connented")
 	stream.on('tweet', function(tweet) {
 		twitter.getPreviousTweet(tweet)
 		socket.emit('info', { tweet: tweet});
