@@ -5,8 +5,10 @@ module.exports = function(T) {
 		return T.get('statuses/user_timeline', { user_id: tweet["user"]["id"], count: 2 }, 
 			function(err, data, response) {
 				try {
-		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
+		  			// console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			console.log(data)
+		  			console.log(response)
+		  			console.log(err)
 		  			return data[1]
 		  		} catch(e) {}
 		  		return false
