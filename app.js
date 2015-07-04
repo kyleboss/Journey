@@ -65,7 +65,11 @@ io.sockets.on('connection', function (socket) {
 				console.log("\n\n\n\n")
 				var isFlight 	= twitter.isFlight(tweetDist)
 				if (isFlight) socket.emit('info', { tweet: tweet});
+			} else {
+				console.log("geoEnabled: " + geoEnabled)
 			}
+		} else {
+			console.log("isFirstTweet: " + isFirstTweet)
 		}
 	});
 });
