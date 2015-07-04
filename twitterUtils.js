@@ -9,7 +9,7 @@ module.exports = function(T) {
 				if (!isFirstTweet) {
 					if (data[0] == undefined) {
 						console.log(data)
-						throw new Error ("data[o] was undefined on line 14 of twitterUtils.js")
+						throw new Error ()
 					}
 		  			console.log(data[0]["text"] + "\n**" + data[1]["text"])
 		  			tweetOrig 				= data[1]
