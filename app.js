@@ -17,7 +17,7 @@ var T 				= new Twit({
 	access_token: 			config.twitter.accessToken,
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
-var twitter = require('./twitterUtils.js');
+var twitter = require('./twitterUtils.js')(T);
 console.log(twitter)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
