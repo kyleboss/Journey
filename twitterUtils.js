@@ -39,7 +39,7 @@ module.exports = function(T) {
 	}
 
 	twitter.isFirstTweet = function(tweet) {
-		return !!tweet
+		return !tweet
 	}
 
 	return twitter
