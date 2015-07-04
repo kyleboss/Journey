@@ -12,7 +12,7 @@ var react = require("express-react-views")
 var app 			= express();
 var http = require( "http" ).createServer( app );
 var io = require( "socket.io" )( http );
-http.listen(8000, "45.55.1.63");
+http.listen(8080, "45.55.1.63");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
