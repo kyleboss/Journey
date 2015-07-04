@@ -37,6 +37,10 @@ module.exports = function(T) {
 	}
 
 	twitter.getDistance = function(geo1, geo2) {
+		var lat1 = geo1[0]
+		var lat2 = geo2[0]
+		var lon1 = geo1[1]
+		var lon2 = geo2[1]
 		var R = 3959;
 		var φ1 = lat1.toRadians();
 		var φ2 = lat2.toRadians();
