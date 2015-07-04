@@ -10,10 +10,9 @@ var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
 var react = require("express-react-views")
 var app 			= express();
-var http = require('http')
-var server = http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+var http = require( "http" ).createServer( app );
+var io = require( "socket.io" )( http );
+http.listen(8000, "45.55.1.63");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,8 +55,9 @@ var stream = T.stream('statuses/filter', { track: 'just landed' })
 //   console.log(tweet)
 // })
 
-var io = require('socket.io').listen(server);
-
+io.on('connection',function(socket){  
+    console.log("A user is connected");
+});
 
 io.sockets.on('connection', function (socket) {
 	console.log("connented")
