@@ -41,9 +41,16 @@ var TweetBox = React.createClass({
         var socket = io.connect("http://45.55.1.63:8080");
         var self = this;
 
-        socket.on('info', function (data) {
+        // socket.on('info', function (data) {
+        //     self.addTweet(data.tweet);
+        // });
+
+        var host = location.origin.replace(/^http/, 'ws')
+        var ws = new WebSocket(host);
+        ws.onmessage = function (data) {
             self.addTweet(data.tweet);
-        });
+        }
+
     },
     render: function() {
         return (
