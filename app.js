@@ -12,10 +12,10 @@ var app 			= express();
 var http    		= require('http').Server(app);
 var io 				= require('socket.io')(http);
 var T 				= new Twit({
-	consumer_key: 			config.twitConfig.consumerKey,
-	consumer_secret: 		config.twitConfig.consumerSecret,
-	access_token: 			config.twitConfig.accessToken,
-	access_token_secret: 	config.twitConfig.accessTokenSecret
+	consumer_key: 			config.twitter.consumerKey,
+	consumer_secret: 		config.twitter.consumerSecret,
+	access_token: 			config.twitter.accessToken,
+	access_token_secret: 	config.twitter.accessTokenSecret
 });
 var twitter = require('./twitterUtils.js')(T);
 console.log(twitter)
@@ -53,6 +53,7 @@ io.sockets.on('connection', function (socket) {
 	stream.on('tweet', function(tweetDest) {
 		console.log("\n")
 		var tweetOrig 			= twitter.getPreviousTweet(tweetDest)
+		console.log(tweetOrig)
 		var isFirstTweet 		= twitter.isFirstTweet(tweetOrig)
 		if (!isFirstTweet) {
 			var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
