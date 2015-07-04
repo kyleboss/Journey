@@ -34,7 +34,7 @@ module.exports = function(T) {
 		try {
 			return tweet["user"]["geo_enabled"]
 		} catch (e) {
-			console.log(tweet)
+			// console.log(tweet)
 			throw new Error (e)
 		}
 	}
