@@ -32,8 +32,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect('mongodb://45.55.1.63/tweets');
-
+var mongoURI = 'mongodb://45.55.1.63/tweets';
+var MongoDB = mongoose.connect(mongoURI).connection;
+MongoDB.on('error', function(err) { console.log(err.message); });
+MongoDB.once('open', function() {
+  console.log("mongodb connection open");
+});
 app.use('/', routes);
 app.use('/users', users);
 
