@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect('mongodb://45.55.1.63:27017/tweets');
+mongoose.connect('mongodb://45.55.1.63/tweets');
 
 app.use('/', routes);
 app.use('/users', users);
