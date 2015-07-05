@@ -50,12 +50,11 @@ http.listen(8080, function() {
 });
 // var stream = T.stream('statuses/sample')
 var stream = T.stream('statuses/filter', { track: 'just landed, just arrived' })
-
+console.log("After stream")
 
 io.sockets.on('connection', function (socket) {
 	console.log("CONNECTED")
 	stream.on('tweet', function(tweetDest) {
-		console.log("INSTREAM")
 		console.log("\n")
 		var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
 	});

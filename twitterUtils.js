@@ -16,11 +16,6 @@ module.exports = function(T) {
 					var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
 					var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
 					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
-					console.log("GEO")
-					console.log(geoEnabledTweetDest)
-					console.log(geoEnabledTweetOrig)
-					console.log(geoEnabledTweetDest && geoEnabledTweetOrig)
-					console.log(geoEnabled)
 					if (geoEnabled) {
 						console.log(tweetDest)
 						var coordDest 	= tweetDest["geo"]["coordinates"]
@@ -98,7 +93,7 @@ module.exports = function(T) {
 		// console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		try {
 			console.log(tweet["geo"])
-			return tweet["user"]["geo_enabled"] && tweet["geo"] != null
+			return tweet["geo"] != null
 		} catch (e) {
 			console.log(tweet)
 			throw new Error (e)
