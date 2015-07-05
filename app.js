@@ -19,7 +19,6 @@ var T 				= new Twit({
 	access_token_secret: 	config.twitter.accessTokenSecret
 });
 var twitter = require('./twitterUtils.js')(T, io);
-console.log(twitter)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -35,9 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var mongoURI = 'mongodb://45.55.1.63/tweets';
 var MongoDB = mongoose.connect(mongoURI).connection;
 MongoDB.on('error', function(err) { console.log(err.message); });
-MongoDB.once('open', function() {
-  console.log("mongodb connection open");
-});
+MongoDB.once('open', function() { console.log("mongodb connection open");});
 app.use('/', routes);
 app.use('/users', users);
 
@@ -56,7 +53,9 @@ var stream = T.stream('statuses/filter', { track: 'just landed, just arrived' })
 
 
 io.sockets.on('connection', function (socket) {
+	console.log("CONNECTED")
 	stream.on('tweet', function(tweetDest) {
+		console.log("INSTREAM")
 		console.log("\n")
 		var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
 	});
