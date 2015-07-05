@@ -45,8 +45,8 @@ http.listen(8080, function() {
   console.log('Listening on port %d', http.address().port);
 });
 // var stream = T.stream('statuses/sample')
-
-var stream = T.stream('statuses/filter', { track: 'just landed, acabo de aterrizar, just arrived, acabo de llegar' })
+var world = [ '-180', '-90', '180', '90' ]
+var stream = T.stream('statuses/filter', { track: 'just landed, acabo de aterrizar, just arrived, acabo de llegar', locations: world })
 
 
 io.sockets.on('connection', function (socket) {
