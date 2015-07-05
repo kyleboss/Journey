@@ -40,16 +40,20 @@ module.exports = function(T) {
 		)
 	}
 
+	twitter.toRadians = function(degree) {
+		return degree * (Math.PI/180)
+	}
+
 	twitter.getDistance = function(geo1, geo2) {
 		var lat1 = geo1[0]
 		var lat2 = geo2[0]
 		var lon1 = geo1[1]
 		var lon2 = geo2[1]
 		var R = 3959;
-		var φ1 = lat1.toRadians();
-		var φ2 = lat2.toRadians();
-		var Δφ = (lat2-lat1).toRadians();
-		var Δλ = (lon2-lon1).toRadians();
+		var φ1 = toRadians.lat1);
+		var φ2 = toRadians.lat2);
+		var Δφ = toRadians.(lat2-lat1));
+		var Δλ = toRadians.(lon2-lon1));
 
 		var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
 		        Math.cos(φ1) * Math.cos(φ2) *
