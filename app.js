@@ -8,6 +8,7 @@ var cookieParser 	= require('cookie-parser');
 var bodyParser 		= require('body-parser');
 var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
+var mongoose 		= requite('mongoose')
 var app 			= express();
 var http    		= require('http').Server(app);
 var io 				= require('socket.io')(http);
@@ -30,6 +31,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+mongoose.connect('mongodb://45.55.1.63:3000/tweets');
 
 app.use('/', routes);
 app.use('/users', users);

@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
+Tweet = require('./models/Tweet');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	Tweet.getTweets(0,0, function(tweets, pages) {
+  		res.render('index', { tweets: JSON.stringify(tweets) });
+  	});
 });
 
 module.exports = router;
