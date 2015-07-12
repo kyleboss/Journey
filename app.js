@@ -34,7 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 var mongoURI = 'mongodb://45.55.1.63/tweets';
 var MongoDB = mongoose.connect(mongoURI).connection;
 MongoDB.on('error', function(err) { console.log(err.message); });
-MongoDB.once('open', function() { console.log("mongodb connection open");});
+MongoDB.once('open', function() {
+
+});
 app.use('/', routes);
 app.use('/users', users);
 
