@@ -22,7 +22,7 @@ function loadWorldPins( callback ){
 
 function loadContentData(callback){
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", "getTweets", false );
+    xmlHttp.open( "GET", "getTweetsFromDb", false );
     xmlHttp.send( null );
     console.log("RESULTS:")
     //console.log(xmlHttp.responseText);

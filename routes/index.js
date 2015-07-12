@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   	});
 });
 
-router.get("/getTweets",function(request, response){
+router.get("/getTweetsFromDb",function(request, response){
     Tweet.getTweetsFromDb(function(tweets) {
         response.writeHead(200, {"Content-Type": "application/json"});
         response.write(JSON.stringify(tweets));

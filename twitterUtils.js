@@ -108,6 +108,7 @@ module.exports = function(T) {
                             return callback(JSON.parse(strJson));
                         }
                     } else {
+                        exit(0)
                         console.log(err)
                     }
                 }); //end collection.find
