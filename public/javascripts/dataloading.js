@@ -20,7 +20,12 @@ function loadWorldPins( callback ){
 	xhr.send( null );			    	
 }
 
-function loadContentData(callback){	
+function loadContentData(callback){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "getTweets", false );
+    xmlHttp.send( null );
+    console.log("RESULTS:")
+    console.log(xmlHttp.responseText);
 	var filePath = "javascripts/categories/All.json";
 	filePath = encodeURI( filePath );
 	// console.log(filePath);
