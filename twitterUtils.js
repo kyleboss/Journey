@@ -99,13 +99,13 @@ module.exports = function(T) {
             if (!err) {
                 collection.find().toArray(function(err, docs) {
                     if (!err) {
-                        db.close();
                         var intCount = docs.length;
                         if (intCount > 0) {
                             var strJson = "";
+                            console.log("THESE ARE THE DOCS")
                             console.log(docs)
                             //strJson = '{"GroupName":"' + gname + '","count":' + intCount + ',"teams":[' + strJson + "]}"
-                            callback("", JSON.parse(strJson));
+                            return callback(JSON.parse(strJson));
                         }
                     } else {
                         console.log(err)
