@@ -49,7 +49,7 @@ http.listen(8080, function() {
   console.log('Listening on port %d', http.address().port);
 });
 // var stream = T.stream('statuses/sample')
-var stream = T.stream('statuses/filter', { track: 'just landed, just arrived' })
+var stream = T.stream('statuses/filter', { track: 'just landed' })
 console.log("After stream")
 
 io.sockets.on('connection', function (socket) {

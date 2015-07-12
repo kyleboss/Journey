@@ -1,7 +1,198 @@
 extends layout
 
-block content
-  script(type='text/javascript', src="http://45.55.1.63:8080/socket.io/socket.io.js")
-  script(type='text/jsx', src="javascripts/component.js")
-  h1 Authenticated
-  div#content
+doctype html
+html(lang='en')
+  head
+    title Interactive Globe: Small Arms Imports & Exports
+    meta(charset='utf-8')
+    meta(name='viewport', content='user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1')
+    link(rel='stylesheet', type='text/css', href='style.css')
+  body#dataviz(onload='start()')
+    #wrapper
+      #loading
+        h2 Loading Small Arms and Ammunition Trade Data from 1992 to 2010. Please wait...
+      div
+        table#marker_template.marker(style="left:'0px';top:'0px'")
+          tr
+            td
+              span#countryText.country
+            td#detailText.detail
+              //
+                <span id="detailText" class="detail">
+                </span>
+      #visualization
+        // 2D overlay elements go in here
+        #glContainer
+          // 3D webgl canvas here
+      script(type='text/javascript', src='http://45.55.1.63:8080/socket.io/socket.io.js')
+      script(type='text/jsx', src='javascripts/component.js')
+      script(src='javascripts/Detector.js')
+      script(src='javascripts/Tween.js')
+      script(src='javascripts/dat.gui.min.js')
+      script(src='javascripts/Three.js')
+      script(src='javascripts/THREEx.KeyboardState.js')
+      script(src='javascripts/THREEx.WindowResize.js')
+      script(src='javascripts/Stats.js')
+      script(src='javascripts/jquery-1.7.1.min.js')
+      script(src='javascripts/jquery-ui-1.8.21.custom.min.js')
+      script(src='javascripts/RequestAnimationFrame.js')
+      script(src='javascripts/ShaderExtras.js')
+      script(src='javascripts/canvg.js')
+      script(src='javascripts/rgbcolor.js')
+      script(src='javascripts/innersvg.js')
+      script(src='javascripts/util.js')
+      script(src='javascripts/mousekeyboard.js')
+      script(src='javascripts/datguicontrol.js')
+      script(src='javascripts/dataloading.js')
+      script(src='javascripts/camerastates.js')
+      script(src='javascripts/geopins.js')
+      script(src='javascripts/visualize.js')
+      script(src='javascripts/visualize_lines.js')
+      script(src='javascripts/markers.js')
+      script(src='javascripts/svgtoy.js', type='text/javascript')
+      script(src='javascripts/d3.v2.min.js')
+      script(src='javascripts/ui.controls.js')
+      script#vertexshader(type='x-shader/x-vertex').
+        uniform float amplitude;
+        attribute float size;
+        attribute vec3 customColor;
+        varying vec3 vColor;
+        void main() {
+        vColor = customColor;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_PointSize = size;
+        gl_Position = projectionMatrix * mvPosition;
+        }
+      script#fragmentshader(type='x-shader/x-fragment').
+        uniform vec3 color;
+        uniform sampler2D texture;
+        varying vec3 vColor;
+        void main() {
+        gl_FragColor = vec4( color * vColor, 1.0 );
+        gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+        }
+      script#globeVertexShader(type='x-shader/x-vertex').
+        varying vec3 vNormal;
+        varying vec2 vUv;
+        void main() {
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0);
+        vNormal = normalize( normalMatrix * normal );
+        vUv = uv;
+        }
+      script#globeFragmentShader(type='x-shader/x-fragment').
+        uniform sampler2D mapIndex;
+        uniform sampler2D lookup;
+        uniform sampler2D outline;
+        uniform float outlineLevel;
+        varying vec3 vNormal;
+        varying vec2 vUv;
+        void main() {
+        vec4 mapColor = texture2D( mapIndex, vUv );
+        float indexedColor = mapColor.x;
+        vec2 lookupUV = vec2( indexedColor, 0. );
+        vec4 lookupColor = texture2D( lookup, lookupUV );
+        float mask = lookupColor.x + (1.-outlineLevel) * indexedColor;
+        mask = clamp(mask,0.,1.);
+        float outlineColor = texture2D( outline, vUv ).x * outlineLevel;
+        float diffuse = mask + outlineColor;
+        gl_FragColor = vec4( vec3(diffuse), 1.  );
+        // gl_FragColor = vec4( lookupColor );
+        // gl_FragColor = vec4(texture2D( lookup, vUv ).xyz,1.);
+        }
+      script(src='javascripts/main.js', type='text/javascript')
+      script(type='text/javascript').
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7963116-1']);
+        _gaq.push(['_setDomainName', 'chromeexperiments.com']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      // All other hud can go here
+      #hudHeader.overlayCountries.noPointer
+        h1.noPointer
+          | Small Arms and Ammunition — Imports & Exports
+          .subtitle
+            | An interactive visualization of government-authorized small arms and ammunition transfers from 1992 to 2010.
+      #hudButtons.overlayCountries.noPointer
+        input.searchBtn.armsBtn.pointer(type='button', value='SEARCH')
+        input.countryTextInput.pointer.noMapDrag(type='text', name='country', value='UNITED STATES')
+        input.zoomBtn.zoomOutBtn.armsBtn.pointer.noMapDrag(type='button', value='—')
+        input.zoomBtn.zoomInBtn.armsBtn.pointer.noMapDrag(type='button', value='+')
+        input.aboutBtn.armsBtn.pointer(type='button', value='ABOUT')
+        br.clear
+      #history.overlayCountries.noPointer
+        .graph
+          .close
+          .labels
+            .change RELATIVE PERCENT CHANGE
+            .exports EXPORTS
+            .imports IMPORTS
+            br.clear
+          .container.noPointer
+        ul.timeline.pointer
+          li 1992
+          li 93
+          li 94
+          li 95
+          li 96
+          li 97
+          li 98
+          li 99
+          li 2000
+          li 01
+          li 02
+          li 03
+          li 04
+          li 05
+          li 06
+          li 07
+          li 08
+          li 09
+          li 2010
+          #handle.noMapDrag
+      #graphIcon.overlayCountries
+      #importExportBtns.overlayCountries
+        .typeLabels
+          .mil Military
+          .civ Civilian
+          .ammo Ammo
+          br.clear
+        .imports.imex
+          .mil
+            .check
+          .civ
+            .check
+          .ammo
+            .check
+          .label Imports
+          br.clear
+        .exports.imex
+          .mil
+            .check
+          .civ
+            .check
+          .ammo
+            .check
+          .label Exports
+          br.clear
+        br.clear
+      #aboutContainer.overlayCountries
+        .arrowUp
+        #aboutBox
+          .title Information about the data
+          .text
+            | This data visualization was produced by Google as part of the
+            a(href='http://www.google.com/ideas', target='_blank') Google Ideas
+            |  INFO (Illicit Networks, Forces in Opposition) Summit with support from the
+            a(href='http://igarape.org.br/', target='_blank') Igarape Institute
+            |  and data provided by the
+            a(href='http://www.prio.no/', target='_blank') Peace Research Institute Oslo (PRIO)
+            |  small arms database. The visualization includes >1 million individual import and export data points from annual custom reports and maps the transfer of small arms, light weapons and ammunition across 250 nation states and territories around the world between 1992 and 2010.
+          .links
+            br
+            |                     For more info, please see the
+            a(href='http://igarape.org.br/armsglobe', target='_blank') FAQs
+            | .

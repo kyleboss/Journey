@@ -27,7 +27,7 @@ module.exports = function(T) {
 						if (isFlight) {
 							// Construct a new tweet object
 						    var tweet = {
-						      created_at: 		  data[0]['timestamp_ms'],
+						      time_created:       Date.now(),
 						      twid:               data[0]['id'],
 						      text:               data[0]['text'],
 						      name:               data[0]['user']['name'],
