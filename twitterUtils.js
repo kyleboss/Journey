@@ -95,6 +95,7 @@ module.exports = function(T) {
 	}
 
     twitter.getTweetsFromDb = function(callback) {
+        console.log("in here")
         db.collection('tweets', function(err, collection) {
             if (!err) {
                 collection.find().toArray(function(err, docs) {
@@ -108,11 +109,12 @@ module.exports = function(T) {
                             return callback(JSON.parse(strJson));
                         }
                     } else {
-                        exit(0)
+                        console.log("ECIT")
                         console.log(err)
                     }
                 }); //end collection.find
             } else {
+                console.log("GRR")
                 console.log(err)
             }
         }); //end db.collection
