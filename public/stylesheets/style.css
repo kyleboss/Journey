@@ -539,7 +539,7 @@ Bar graph on left
     bottom: 10px;
     left: 1255px;
     cursor: pointer;
-    background: url('images/graphIcon.png') 0 0 no-repeat;
+    background: url('../images/graphIcon.png') 0 0 no-repeat;
     display: none;
     opacity: 0.9;
 }
