@@ -21,15 +21,13 @@ function loadWorldPins( callback ){
 }
 
 function loadContentData(callback){
-    //var xmlHttp = new XMLHttpRequest();
-    //xmlHttp.open( "GET", "getTweetsFromDb", false );
-    //xmlHttp.send( null );
-    console.log("RESULTS:")
-    //console.log(xmlHttp.responseText);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "getTweetsFromDb", false );
+    xmlHttp.send( null );
+    console.log(xmlHttp.responseText);
 	var filePath = "javascripts/categories/All.json";
 	filePath = encodeURI( filePath );
-	// console.log(filePath);
-			
+
 	xhr = new XMLHttpRequest();
 	xhr.open( 'GET', filePath, true );
 	xhr.onreadystatechange = function() {
@@ -37,7 +35,6 @@ function loadContentData(callback){
 	    	timeBins = JSON.parse( xhr.responseText ).timeBins;
 		
 			maxValue = 0;
-			console.log(timeBins);
 
 			startTime = timeBins[0].t;
 	    	endTime = timeBins[timeBins.length-1].t;
@@ -45,8 +42,6 @@ function loadContentData(callback){
 
 			if(callback)
 				callback();	
-			console.log(timeBins)			
-	    	console.log("finished read data file");	   	
 	    }
 	};
 	xhr.send( null );					    	
@@ -58,7 +53,6 @@ function loadCountryCodes( callback ){
 	cxhr.onreadystatechange = function() {
 		if ( cxhr.readyState === 4 && cxhr.status === 200 ) {
 	    	countryLookup = JSON.parse( cxhr.responseText );	
-	    	console.log("loaded country codes");
 	    	callback();
 	    }
 	};
