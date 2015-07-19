@@ -30,7 +30,10 @@ function loadContentData(callback){
 	xmlHttp.onreadystatechange = function() {
 		if ( xmlHttp.readyState === 4 && xmlHttp.status === 200 ) {
 			timeBins = JSON.parse( xhr.responseText ).timeBins;
-
+			for (var i = 0; i < timeBins[0]["data"].length; i++) {
+				timeBins[0]["data"][i]["v"] = 3000000;
+			}
+			console.log(timeBins);
 			maxValue = 0;
 
 			startTime = timeBins[0].t;
@@ -49,10 +52,7 @@ function loadContentData(callback){
 	xhr.onreadystatechange = function() {
 		if ( xhr.readyState === 4 && xhr.status === 200 ) {
 	    	timeBins = JSON.parse( xhr.responseText ).timeBins;
-			for (var i = 0; i < timeBins[0]["data"].length; i++) {
-				timeBins[0]["data"][i]["v"] = 3000000;
-			}
-			console.log(timeBins);
+
 			maxValue = 0;
 
 			startTime = timeBins[0].t;
