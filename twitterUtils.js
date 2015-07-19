@@ -33,10 +33,10 @@ module.exports = function(T) {
 						      name:               data[0]['user']['name'],
 						      screen_name:        data[0]['user']['screen_name'],
 						      profile_image_url:  data[0]['user']['profile_image_url'],
-						      origLat: 			  coordOrig[0],
-						      origLong: 		  coordOrig[1],
-						      destLat: 			  coordDest[0],
-						      destLong: 		  coordDest[1]					      
+						      origLat: 			  coordOrig[1],
+						      origLong: 		  coordOrig[0],
+						      destLat: 			  coordDest[1],
+						      destLong: 		  coordDest[0]
 						    };
 
 						    // Create a new model instance with our object

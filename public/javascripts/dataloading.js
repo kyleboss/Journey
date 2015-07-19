@@ -42,26 +42,6 @@ function loadContentData(callback){
 		}
 	};
 	xmlHttp.send( null );
-	//var filePath = "javascripts/categories/All.json";
-	//filePath = encodeURI( filePath );
-    //
-	//xhr = new XMLHttpRequest();
-	//xhr.open( 'GET', filePath, true );
-	//xhr.onreadystatechange = function() {
-	//	if ( xhr.readyState === 4 && xhr.status === 200 ) {
-	//    	timeBins = JSON.parse( xhr.responseText ).timeBins;
-    //
-	//		maxValue = 0;
-    //
-	//		startTime = timeBins[0].t;
-	//    	endTime = timeBins[timeBins.length-1].t;
-	//    	timeLength = endTime - startTime;
-    //
-	//		if(callback)
-	//			callback();
-	//    }
-	//};
-	//xhr.send( null );
 }
 
 function loadCountryCodes( callback ){
