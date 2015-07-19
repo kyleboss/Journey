@@ -52,7 +52,7 @@ schema.statics.getTweetsFromDb = function(callback) {
         // Pass them back to the specified callback
         tweets.forEach(function(tweet){
             tweet.v = 3000000; // Set them to active
-            console.log(tweet)
+            console.log(tweet.v)
 
         });
         //console.log(tweets);
