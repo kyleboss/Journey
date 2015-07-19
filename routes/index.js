@@ -11,8 +11,9 @@ router.get('/', function(req, res, next) {
 
 router.get("/getTweetsFromDb",function(request, response){
     Tweet.getTweetsFromDb(function(tweets) {
+        var formattedTweets = {timeBins: [{data: tweets, t: 1992}]};
         response.writeHead(200, {"Content-Type": "application/json"});
-        response.write(JSON.stringify(tweets));
+        response.write(JSON.stringify(formattedTweets));
         response.end();
     });
 });

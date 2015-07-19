@@ -50,15 +50,10 @@ schema.statics.getTweetsFromDb = function(callback) {
         if(!err) tweets = docs;  // We got tweets
 
         // Pass them back to the specified callback
-        var formattedTweets = {timeBins: [{data: [], t: 1992}]};
         tweets.forEach(function(tweet){
             tweet.v = 3000000;
-            formattedTweets["timeBins"][0]["data"].push(tweet);
         });
-        console.log(tweets);
-        console.log("***THEN***");
-        console.log(formattedTweets);
-        callback(formattedTweets);
+        callback(tweets);
 
     });
 
