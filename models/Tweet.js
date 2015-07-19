@@ -15,7 +15,7 @@ var schema = new mongoose.Schema({
 });
 
 // Create a static getTweets method to return tweet data from the db
-schema.statics.getTweets = function(page, skip, callback) {
+schema.statics.getTweetsFromDb = function(page, skip, callback) {
 
   var tweets = [],
       start = (page * 10) + (skip * 1);
