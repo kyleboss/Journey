@@ -57,7 +57,7 @@ schema.statics.getTweetsFromDb = function(callback) {
         }
         console.log(tweets);
         console.log("***THEN***");
-        console.log(formattedTweets);
+        console.log(formattedTweets["timeBins"][0]["data"]);
         callback(formattedTweets);
 
     });
