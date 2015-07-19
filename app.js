@@ -57,7 +57,6 @@ console.log("After stream")
 io.sockets.on('connection', function (socket) {
     console.log("CONNECTED")
     stream.on('tweet', function(tweetDest) {
-        console.log(tweetDest)
         console.log("\n")
         var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
     });

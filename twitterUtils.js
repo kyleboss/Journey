@@ -18,8 +18,8 @@ module.exports = function(T) {
 					var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig
 					if (geoEnabled) {
 						console.log(tweetDest)
-						var coordDest 	= tweetDest["geo"]["coordinates"]
-						var coordOrig 	= tweetOrig["geo"]["coordinates"]
+						var coordDest 	= tweetDest["coordinates"]["coordinates"]
+						var coordOrig 	= tweetOrig["coordinates"]["coordinates"]
 						var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
 						console.log(tweetDist)
 						console.log("\n\n\n\n")
@@ -99,10 +99,10 @@ module.exports = function(T) {
 	}
 
 	twitter.getDistance = function(geo1, geo2) {
-		var lat1 = geo1[0]
-		var lat2 = geo2[0]
-		var lon1 = geo1[1]
-		var lon2 = geo2[1]
+		var lat1 = geo1[1]
+		var lat2 = geo2[1]
+		var lon1 = geo1[0]
+		var lon2 = geo2[0]
 		var R = 3959;
 		var φ1 = twitter.toRadians(lat1);
 		var φ2 = twitter.toRadians(lat2);
@@ -121,8 +121,8 @@ module.exports = function(T) {
 	twitter.isGeoEnabled = function(tweet) {
 		// console.log("RETURNINGL: " + tweet["user"]["geo_enabled"])
 		try {
-			console.log(tweet["geo"])
-			return tweet["geo"] != null
+			console.log(tweet["coordinates"])
+			return tweet["coordinates"] != null
 		} catch (e) {
 			console.log(tweet)
 			throw new Error (e)
