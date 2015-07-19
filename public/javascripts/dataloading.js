@@ -26,7 +26,7 @@ function loadContentData(callback){
 
 	xmlHttp.onreadystatechange = function() {
 		if ( xmlHttp.readyState === 4 && xmlHttp.status === 200 ) {
-			timeBins = JSON.parse( xhr.responseText ).timeBins;
+			timeBins = JSON.parse( xmlHttp.responseText ).timeBins;
 			for (var i = 0; i < timeBins[0]["data"].length; i++) {
 				timeBins[0]["data"][i]["v"] = 3000000;
 			}
