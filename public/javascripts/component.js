@@ -55,7 +55,7 @@ var TweetBox = React.createClass({
     }
 });
 
-//React.render(
-//  <TweetBox />,
-//  document.getElementById('content')
-//);
+React.render(
+  <TweetBox />,
+  document.getElementById('garbage')
+);
