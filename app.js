@@ -50,7 +50,6 @@ app.use(function(req, res, next) {
 http.listen(8080, function() {
     console.log('Listening on port %d', http.address().port);
 });
-io.listen(http);
 // var stream = T.stream('statuses/sample')
 var stream = T.stream('statuses/filter', { track: 'just landed' })
 console.log("After stream")
@@ -65,7 +64,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 io.sockets.on('disconnect', function(){
-    console.log("disconnect")
+    HANDLE HERE
 });
 
 // error handlers
