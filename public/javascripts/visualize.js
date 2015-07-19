@@ -124,6 +124,8 @@ function getVisualizedMesh( linearData, year, countries, exportCategories, impor
 			particleCount = constrain(particleCount,1,100);
 			var particleSize = set.lineGeometry.size;
 			console.log(particleSize)
+            console.log(particleCount)
+            console.log("PARTICLES")
 			for( var s=0; s<particleCount; s++ ){
 				console.log("parcitle");
 				// var rIndex = Math.floor( Math.random() * points.length );
