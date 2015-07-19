@@ -23,9 +23,6 @@ function loadWorldPins( callback ){
 function loadContentData(callback){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", "getTweetsFromDb", false );
-    xmlHttp.send( null );
-	console.log("RESP")
-    console.log(xmlHttp.responseText);
 
 	xmlHttp.onreadystatechange = function() {
 		if ( xmlHttp.readyState === 4 && xmlHttp.status === 200 ) {
@@ -44,6 +41,7 @@ function loadContentData(callback){
 				callback();
 		}
 	};
+	xmlHttp.send( null );
 	var filePath = "javascripts/categories/All.json";
 	filePath = encodeURI( filePath );
 
