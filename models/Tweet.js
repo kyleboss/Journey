@@ -53,6 +53,7 @@ schema.statics.getTweetsFromDb = function(callback) {
         tweets.forEach(function(tweet){
             tweet.v = 3000000;
         });
+        console.log(tweets)
         callback(tweets);
 
     });
