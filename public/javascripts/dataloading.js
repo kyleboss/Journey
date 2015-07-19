@@ -26,6 +26,21 @@ function loadContentData(callback){
     xmlHttp.send( null );
 	console.log("RESP")
     console.log(xmlHttp.responseText);
+
+	xmlHttp.onreadystatechange = function() {
+		if ( xmlHttp.readyState === 4 && xmlHttp.status === 200 ) {
+			timeBins = JSON.parse( xhr.responseText ).timeBins;
+
+			maxValue = 0;
+
+			startTime = timeBins[0].t;
+			endTime = timeBins[timeBins.length-1].t;
+			timeLength = endTime - startTime;
+
+			if(callback)
+				callback();
+		}
+	};
 	var filePath = "javascripts/categories/All.json";
 	filePath = encodeURI( filePath );
 
@@ -34,7 +49,10 @@ function loadContentData(callback){
 	xhr.onreadystatechange = function() {
 		if ( xhr.readyState === 4 && xhr.status === 200 ) {
 	    	timeBins = JSON.parse( xhr.responseText ).timeBins;
-		
+			for (var i = 0; i < timeBins[0][data].length; i++) {
+				timeBins[0]["data"][i]["v"] = 3000000;
+			}
+			console.log(timeBins);
 			maxValue = 0;
 
 			startTime = timeBins[0].t;
