@@ -10,13 +10,13 @@ var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
 var mongoose 		= require('mongoose')
 var app 			= express();
-var http    		= require('http').Server(app);
+var http    		= require('http').createServer(app);
 var io 				= require('socket.io')(http);
 var T 				= new Twit({
-	consumer_key: 			config.twitter.consumerKey,
-	consumer_secret: 		config.twitter.consumerSecret,
-	access_token: 			config.twitter.accessToken,
-	access_token_secret: 	config.twitter.accessTokenSecret
+    consumer_key: 			config.twitter.consumerKey,
+    consumer_secret: 		config.twitter.consumerSecret,
+    access_token: 			config.twitter.accessToken,
+    access_token_secret: 	config.twitter.accessTokenSecret
 });
 var twitter = require('./twitterUtils.js')(T, io);
 // view engine setup
@@ -42,25 +42,25 @@ app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 http.listen(8080, function() {
-  console.log('Listening on port %d', http.address().port);
+    console.log('Listening on port %d', http.address().port);
 });
 // var stream = T.stream('statuses/sample')
 var stream = T.stream('statuses/filter', { track: 'just landed' })
 console.log("After stream")
 
-io.sockets.on('connection', function (socket) {
-	console.log("CONNECTED")
-	stream.on('tweet', function(tweetDest) {
+io.on('connection', function (socket) {
+    console.log("CONNECTED")
+    stream.on('tweet', function(tweetDest) {
         console.log(tweetDest)
-		console.log("\n")
-		var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
-	});
+        console.log("\n")
+        var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
+    });
 });
 
 // error handlers
@@ -68,23 +68,23 @@ io.sockets.on('connection', function (socket) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 
