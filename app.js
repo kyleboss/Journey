@@ -10,7 +10,7 @@ var routes 			= require('./routes/index');
 var users 			= require('./routes/users');
 var mongoose 		= require('mongoose')
 var app 			= express();
-var http    		= require('http').createServer(app);
+var http    		= require('http').Server(app);
 var io 				= require('socket.io')(http);
 var T 				= new Twit({
     consumer_key: 			config.twitter.consumerKey,
@@ -54,13 +54,17 @@ http.listen(8080, function() {
 var stream = T.stream('statuses/filter', { track: 'just landed' })
 console.log("After stream")
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
     console.log("CONNECTED")
     stream.on('tweet', function(tweetDest) {
         console.log(tweetDest)
         console.log("\n")
         var tweetOrig = twitter.getPreviousTweet(tweetDest, socket)
     });
+});
+
+io.sockets.on('disconnect', function(){
+    console.log("disconnect")
 });
 
 // error handlers
