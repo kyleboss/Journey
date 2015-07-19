@@ -64,7 +64,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 io.sockets.on('disconnect', function(){
-    HANDLE HERE
+    console.log("Just disconneted socket.io");
 });
 
 // error handlers
