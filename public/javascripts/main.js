@@ -485,7 +485,7 @@ function highlightCountry( countries ){
 	// 	ctx.fillRect( i, 0, 1, 1 );
 	// }
 
-	var selectedCountryCode = selectedCountry.countryCode;
+	//var selectedCountryCode = selectedCountry.countryCode;
 	
 	for( var i in countryCodes ){
 		var countryCode = countryCodes[i];
@@ -494,8 +494,8 @@ function highlightCountry( countries ){
 		var mapColor = countryData[countries[i]].mapColor;
 		// var fillCSS = '#ff0000';
 		var fillCSS = '#333333';
-		if( countryCode === selectedCountryCode )
-			fillCSS = '#eeeeee'
+		//if( countryCode === selectedCountryCode )
+		//	fillCSS = '#eeeeee'
 		// if( mapColor !== undefined ){
 		// 	var k = map( mapColor, 0, 200000000, 0, 255 );
 		// 	k = Math.floor( constrain( k, 0, 255 ) );

@@ -94,32 +94,6 @@ module.exports = function(T) {
 		)
 	}
 
-    twitter.getTweetsFromDb = function(callback) {
-        console.log("in here")
-        db.collection('tweets', function(err, collection) {
-            if (!err) {
-                collection.find().toArray(function(err, docs) {
-                    if (!err) {
-                        var intCount = docs.length;
-                        if (intCount > 0) {
-                            var strJson = "";
-                            console.log("THESE ARE THE DOCS")
-                            console.log(docs)
-                            //strJson = '{"GroupName":"' + gname + '","count":' + intCount + ',"teams":[' + strJson + "]}"
-                            return callback(JSON.parse(strJson));
-                        }
-                    } else {
-                        console.log("ECIT")
-                        console.log(err)
-                    }
-                }); //end collection.find
-            } else {
-                console.log("GRR")
-                console.log(err)
-            }
-        }); //end db.collection
-    }
-
 	twitter.toRadians = function(degree) {
 		return degree * (Math.PI/180)
 	}
