@@ -24,6 +24,7 @@ function loadContentData(callback){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", "getTweetsFromDb", false );
     xmlHttp.send( null );
+	console.log("RESP")
     console.log(xmlHttp.responseText);
 	var filePath = "javascripts/categories/All.json";
 	filePath = encodeURI( filePath );
