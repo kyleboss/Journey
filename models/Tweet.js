@@ -55,9 +55,9 @@ schema.statics.getTweetsFromDb = function(callback) {
             tweet.v = 3000000;
             formattedTweets["timeBins"][0]["data"].push(tweet);
         });
-        //console.log(tweets);
-        //console.log("***THEN***");
-        //console.log(formattedTweets["timeBins"][0]["data"]);
+        console.log(tweets);
+        console.log("***THEN***");
+        console.log(formattedTweets);
         callback(formattedTweets);
 
     });
