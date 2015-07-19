@@ -44,7 +44,7 @@ schema.statics.getTweetsFromDb = function(callback) {
     var tweets = [];
 
     // Query the db, using skip and limit to achieve page chunks
-    Tweet.find({},'twid name profile_image_url text created_at screen_name origLat origLong destLat destLong',{}).sort({date: 'desc'}).limit(50).exec(function(err,docs){
+    Tweet.find({},'twid name profile_image_url text created_at screen_name origLat origLong destLat destLong',{}).sort({date: 'desc'}).limit(5).exec(function(err,docs){
 
         // If everything is cool...
         if(!err) tweets = docs;  // We got tweets
