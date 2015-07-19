@@ -125,7 +125,7 @@ function getVisualizedMesh( linearData, year, countries, exportCategories, impor
 			var particleSize = set.lineGeometry.size;
 			console.log(particleSize)
             console.log(particleCount)
-            console.log(set.lineGeometry.vertices);
+            console.log(set.v);
             console.log("PARTICLES")
 			for( var s=0; s<particleCount; s++ ){
 				console.log("parcitle");
