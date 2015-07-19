@@ -30,8 +30,8 @@ function buildDataVizGeometries( linearData ){
 			console.log(set)
 			
 			//	we couldn't find the country, it wasn't in our list...
-			start 	= getThreeDimCoords(set.lat1, set.long1)
-			end 	= getThreeDimCoords(set.lat2, set.long2)
+			start 	= getThreeDimCoords(set.origLat, set.origLong)
+			end 	= getThreeDimCoords(set.destLat, set.destLong)
 
 
 			//	visualize this event
