@@ -57,7 +57,7 @@ schema.statics.getTweetsFromDb = function(callback) {
         //    tweet["v"] = 3000000; // Set them to active
         //    console.log(tweet)
 
-        });
+        //});
         //console.log(tweets);
         callback(tweets);
 
