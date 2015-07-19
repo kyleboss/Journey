@@ -51,13 +51,13 @@ schema.statics.getTweetsFromDb = function(callback) {
 
         // Pass them back to the specified callback
         var formattedTweets = {timeBins: [{data: [], t: 1992}]};
-        for (var i = 0; i<tweets.length; i++) {
-            tweets[i]["v"] = 3000000;
-            formattedTweets["timeBins"][0]["data"].push(tweets[i]);
-        }
-        console.log(tweets);
-        console.log("***THEN***");
-        console.log(formattedTweets["timeBins"][0]["data"]);
+        tweets.forEach(function(tweet){
+            tweet.v = 3000000;
+            formattedTweets["timeBins"][0]["data"].push(tweet);
+        });
+        //console.log(tweets);
+        //console.log("***THEN***");
+        //console.log(formattedTweets["timeBins"][0]["data"]);
         callback(formattedTweets);
 
     });
