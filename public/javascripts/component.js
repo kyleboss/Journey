@@ -41,9 +41,9 @@ var TweetBox = React.createClass({
         var socket = io.connect("http://45.55.1.63:8080/");
         var self = this;
 
-        //socket.on('info', function (data) {
-        //    self.addTweet(data.tweet);
-        //});
+        socket.on('info', function (data) {
+            self.addTweet(data.tweet);
+        });
     },
     render: function() {
         return (
@@ -55,7 +55,7 @@ var TweetBox = React.createClass({
     }
 });
 
-React.render(
-  <TweetBox />,
-  document.getElementById('content')
-);
+//React.render(
+//  <TweetBox />,
+//  document.getElementById('content')
+//);
