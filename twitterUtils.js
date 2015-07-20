@@ -2,7 +2,7 @@ module.exports = function(T) {
 	var twitter = {}
 
 	twitter.getPreviousTweet = function(tweetDest, socket) {
-		T.get('statuses/user_timeline', { user_id: tweetDest["user"]["id"], count: 2 }, 
+		T.get('statuses/user_timeline', { user_id: tweetDest["user"]["id"], count: 2 },
 			function(err, data, response) {
 				var tweetOrig;
 				var isFirstTweet = twitter.isFirstTweet(data)
@@ -56,7 +56,36 @@ module.exports = function(T) {
 							console.log("Not far enough to be a flight.")
 						}
 					} else {
-						console.log("NOT GEOENABLED")
+						console.log("geoEnabled: " + geoEnabled)
+						console.log(tweetDest)
+						console.log("\n\n\n")
+						// Construct a new tweet object
+					    var tweet = {
+					      created_at: 		  data[0]['timestamp_ms'],
+					      twid:               data[0]['id'],
+					      text:               data[0]['text'],
+					      name:               data[0]['user']['name'],
+					      screen_name:        data[0]['user']['screen_name'],
+					      profile_image_url:  data[0]['user']['profile_image_url'],
+					      origLat: 			  Math.floor((Math.random() * 180)),
+					      origLong: 		  Math.floor((Math.random() * 180)),
+					      destLat: 			  Math.floor((Math.random() * 180)),
+					      destLong: 		  Math.floor((Math.random() * 180))
+					    };
+
+					    // Create a new model instance with our object
+					    var tweetEntry = new Tweet(tweet);
+
+					    // Save 'er to the database
+					    tweetEntry.save(function(err) {
+					      if (!err) {
+					        // If everything is cool, socket.io emits the tweet.
+					        socket.emit('info', { tweet: tweetDest});
+					      } else {
+					      	console.log("Made it to the very end...then errored (DB?)")
+					      	console.log(err)
+					      }
+					    });
 					}
 		  		} else {
 					console.log("isFirstTweet: " + isFirstTweet)
