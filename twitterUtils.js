@@ -9,54 +9,54 @@ module.exports = function(T) {
                 if (!isFirstTweet) {
                     if (data[0] == undefined) {
                         console.log(data);
-                        throw new Error ()
-                    }
-                    console.log(data[0]["text"] + "\n**" + data[1]["text"])
-                    tweetOrig 				= data[1];
-                    var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
-                    var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
-                    var geoEnabled 			= geoEnabledTweetDest && geoEnabledTweetOrig;
-
-                    if (geoEnabled) {
-                        var coordDest 	= tweetDest["coordinates"]["coordinates"]
-                        var coordOrig 	= tweetOrig["coordinates"]["coordinates"]
-                        var tweetDist 	= twitter.getDistance(coordOrig, coordDest)
-                        console.log(tweetDist)
-                        console.log("\n\n\n\n")
-                        var isFlight 	= twitter.isFlight(tweetDist)
-                        if (isFlight) {
-                            // Construct a new tweet object
-                            var tweet = {
-                                time_created:       Date.now(),
-                                twid:               data[0]['id'],
-                                text:               data[0]['text'],
-                                name:               data[0]['user']['name'],
-                                screen_name:        data[0]['user']['screen_name'],
-                                profile_image_url:  data[0]['user']['profile_image_url'],
-                                origLat: 			coordOrig[1],
-                                origLong: 		    coordOrig[0],
-                                destLat: 			coordDest[1],
-                                destLong: 		    coordDest[0]
-                            };
-
-                            // Create a new model instance with our object
-                            var tweetEntry = new Tweet(tweet);
-
-                            // Save 'er to the database
-                            tweetEntry.save(function(err) {
-                                if (!err) {
-                                    // If everything is cool, socket.io emits the tweet.
-                                    socket.emit('info', { tweet: tweetDest});
-                                } else {
-                                    console.log("Made it to the very end...then errored (DB?)")
-                                    console.log(err)
-                                }
-                            });
-                        } else {
-                            console.log("Not far enough to be a flight.")
-                        }
                     } else {
-                        console.log("NOT GEOENABLED")
+                        console.log(data[0]["text"] + "\n**" + data[1]["text"])
+                        tweetOrig = data[1];
+                        var geoEnabledTweetDest = twitter.isGeoEnabled(tweetDest)
+                        var geoEnabledTweetOrig = twitter.isGeoEnabled(tweetOrig)
+                        var geoEnabled = geoEnabledTweetDest && geoEnabledTweetOrig;
+
+                        if (geoEnabled) {
+                            var coordDest = tweetDest["coordinates"]["coordinates"]
+                            var coordOrig = tweetOrig["coordinates"]["coordinates"]
+                            var tweetDist = twitter.getDistance(coordOrig, coordDest)
+                            console.log(tweetDist)
+                            console.log("\n\n\n\n")
+                            var isFlight = twitter.isFlight(tweetDist)
+                            if (isFlight) {
+                                // Construct a new tweet object
+                                var tweet = {
+                                    time_created: Date.now(),
+                                    twid: data[0]['id'],
+                                    text: data[0]['text'],
+                                    name: data[0]['user']['name'],
+                                    screen_name: data[0]['user']['screen_name'],
+                                    profile_image_url: data[0]['user']['profile_image_url'],
+                                    origLat: coordOrig[1],
+                                    origLong: coordOrig[0],
+                                    destLat: coordDest[1],
+                                    destLong: coordDest[0]
+                                };
+
+                                // Create a new model instance with our object
+                                var tweetEntry = new Tweet(tweet);
+
+                                // Save 'er to the database
+                                tweetEntry.save(function (err) {
+                                    if (!err) {
+                                        // If everything is cool, socket.io emits the tweet.
+                                        socket.emit('info', {tweet: tweetDest});
+                                    } else {
+                                        console.log("Made it to the very end...then errored (DB?)")
+                                        console.log(err)
+                                    }
+                                });
+                            } else {
+                                console.log("Not far enough to be a flight.")
+                            }
+                        } else {
+                            console.log("NOT GEOENABLED")
+                        }
                     }
                 } else {
                     console.log("isFirstTweet: " + isFirstTweet)
